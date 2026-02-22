@@ -12,8 +12,13 @@ const Dashboard = () => {
          const response = await api.get("/general/summary");
          setSummary(response.data);
        } catch (err) {
-        setError("Failed to load summary");
-        console.error(err);
+         if (err.response?.status) {
+            setError(`Error ${err.response.status}: Failed to load summary`);
+      }  else {
+            setError("Failed to load summary");
+            }
+
+  console.error(err);
        }
     }
 
